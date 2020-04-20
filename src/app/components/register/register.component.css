@@ -1,0 +1,13 @@
+.input-success {
+  background:#d4edda;
+  border-color: #155724;
+}
+
+.input-error {
+  background:#f8d7da;
+  border-color: #721c24;
+}
+
+.fa-check-circle-o, .check {
+  color: #155724 !important;
+}
