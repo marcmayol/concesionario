@@ -1,6 +1,6 @@
 <div class="row pt-5">
   <div class="col-12">
-    <div *ngIf="status" class="alert alert-success mb-3 mt-1" role="alert">
+    <div *ngIf="status  && message" class="alert alert-success mb-3 mt-1" role="alert">
       {{message}}
     </div>
     <div *ngIf="!status && message" class="alert alert-danger mb-3 mt-1" role="alert">

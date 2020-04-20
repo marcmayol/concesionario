@@ -1,0 +1,39 @@
+<div class="row pt-5">
+  <div class="col-12">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="email" [ngClass]="{'check':email.valid}">Email: <i *ngIf="email.valid"
+                                                                       class="fa fa-check-circle-o true"
+                                                                       aria-hidden="true"></i> </label>
+        <input type="email" [(ngModel)]="user.email" (keyup)="checksatus('email')" formControlName="email"
+               class="form-control" id="email" required/>
+      </div>
+      <div *ngIf=" email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="email.errors.required">
+          El email es obligatorio
+        </div>
+        <div *ngIf="email.errors.email">
+          Introduce un email válido
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" [ngClass]="{'check':password.valid}">Password: <i *ngIf="password.valid"
+                                                                                class="fa fa-check-circle-o true"
+                                                                                aria-hidden="true"></i></label>
+        <input type="password" [(ngModel)]="user.password" (keyup)="checksatus('password')" formControlName="password"
+               class="form-control" id="password" required/>
+      </div>
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="password.errors.required">
+          La contraseña es obligatoria
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+    </form>
+  </div>
+</div>
+

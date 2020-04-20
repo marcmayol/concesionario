@@ -23,4 +23,14 @@ export class UserService {
       params,
       {headers: headers});
   }
+
+  public signup(email: string, password: string): Observable<any> {
+
+    let params = {'password': password, 'email': email};
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post(
+      GLOBALS.url + 'login',
+      params,
+      {headers: headers});
+  }
 }
