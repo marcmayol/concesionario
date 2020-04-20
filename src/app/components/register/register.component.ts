@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   public title: string;
   public user: User;
   public registerForm;
-  public status: string;
+  public status: boolean = null;
   public message: string;
 
   constructor(
@@ -50,8 +50,9 @@ export class RegisterComponent implements OnInit {
       response => {
         //@ts-ignore
         if (response.status === 'succes') {
+          this.registerForm.reset();
           //@ts-ignore
-          this.status = response.status;
+          this.status = true;
           this.message = response.message;
         }
       },

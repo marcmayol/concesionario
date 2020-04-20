@@ -1,57 +1,76 @@
-<div class="col-12">
+<div class="row pt-5">
+  <div class="col-12">
+    <div *ngIf="status" class="alert alert-success mb-3 mt-1" role="alert">
+      {{message}}
+    </div>
+    <div *ngIf="!status && message" class="alert alert-danger mb-3 mt-1" role="alert">
+      {{message}}
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name" [ngClass]="{'check':name.valid}">Nombre: <i *ngIf="name.valid"
+                                                                      class="fa fa-check-circle-o true"
+                                                                      aria-hidden="true"></i> </label>
+        <input type="text" [(ngModel)]="user.name" formControlName="name" id="name"
+               class="form-control" (keyup)="checksatus('name')"/>
+      </div>
+      <div *ngIf=" name.invalid && (name.dirty || name.touched)"
+           class="alert alert-danger form-danger" role="alert">
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name" [ngClass]="{'check':name.valid}">Nombre: <i *ngIf="name.valid" class="fa fa-check-circle-o true" aria-hidden="true"></i> </label>
-      <input type="text" [(ngModel)]="user.name" formControlName="name" id="name"
-            class="form-control" (keyup)="checksatus('name')"/>
-    </div>
-    <div *ngIf=" name.invalid && (name.dirty || name.touched)"
-      class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="name.errors.required">
+          El Nombre es obligatorio
+        </div>
+        <div *ngIf="name.errors.minlength">
+          El nombre necesita un mínimo de 3 caracters.
+        </div>
+      </div>
 
-      <div *ngIf="name.errors.required">
-        El Nombre es obligatorio
+      <div class="form-group">
+        <label for="surname" [ngClass]="{'check':surname.valid}">Apellidos: <i *ngIf="surname.valid"
+                                                                               class="fa fa-check-circle-o true"
+                                                                               aria-hidden="true"></i></label>
+        <input type="text" [(ngModel)]="user.surname" formControlName="surname" class="form-control" id="surname"
+               required
+               (keyup)="checksatus('surname')"/>
       </div>
-      <div *ngIf="name.errors.minlength">
-        El nombre necesita un mínimo de 3 caracters.
+      <div *ngIf=" surname.invalid && (surname.dirty || surname.touched)"
+           class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="surname.errors.required">
+          El apellido es obligatorio
+        </div>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="surname" [ngClass]="{'check':surname.valid}">Apellidos: <i  *ngIf="surname.valid" class="fa fa-check-circle-o true" aria-hidden="true"></i></label>
-      <input type="text" [(ngModel)]="user.surname" formControlName="surname" class="form-control" id="surname" required (keyup)="checksatus('surname')"/>
-    </div>
-    <div *ngIf=" surname.invalid && (surname.dirty || surname.touched)"
-         class="alert alert-danger form-danger" role="alert">
-      <div *ngIf="surname.errors.required">
-        El apellido es obligatorio
+      <div class="form-group">
+        <label for="email" [ngClass]="{'check':email.valid}">Email: <i *ngIf="email.valid"
+                                                                       class="fa fa-check-circle-o true"
+                                                                       aria-hidden="true"></i> </label>
+        <input type="email" [(ngModel)]="user.email" (keyup)="checksatus('email')" formControlName="email"
+               class="form-control" id="email" required/>
       </div>
-    </div>
+      <div *ngIf=" email.invalid && (email.dirty || email.touched)"
+           class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="email.errors.required">
+          El email es obligatorio
+        </div>
+        <div *ngIf="email.errors.email">
+          Introduce un email válido
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="email" [ngClass]="{'check':email.valid}">Email: <i *ngIf="email.valid" class="fa fa-check-circle-o true" aria-hidden="true"></i> </label>
-      <input type="email" [(ngModel)]="user.email" (keyup)="checksatus('email')" formControlName="email" class="form-control" id="email" required/>
-    </div>
-    <div *ngIf=" email.invalid && (email.dirty || email.touched)"
-         class="alert alert-danger form-danger" role="alert">
-      <div *ngIf="email.errors.required">
-        El email es obligatorio
+      <div class="form-group">
+        <label for="password" [ngClass]="{'check':password.valid}">Password: <i *ngIf="password.valid"
+                                                                                class="fa fa-check-circle-o true"
+                                                                                aria-hidden="true"></i></label>
+        <input type="password" [(ngModel)]="user.password" (keyup)="checksatus('password')" formControlName="password"
+               class="form-control" id="password" required/>
       </div>
-      <div *ngIf="email.errors.email">
-       Introduce un email válido
+      <div *ngIf="password.invalid && (password.dirty || password.touched)"
+           class="alert alert-danger form-danger" role="alert">
+        <div *ngIf="password.errors.required">
+          La contraseña es obligatoria
+        </div>
       </div>
-    </div>
-
-    <div class="form-group">
-      <label for="password" [ngClass]="{'check':password.valid}">Password: <i *ngIf="password.valid" class="fa fa-check-circle-o true" aria-hidden="true"></i></label>
-      <input type="password" [(ngModel)]="user.password" (keyup)="checksatus('password')" formControlName="password" class="form-control" id="password" required/>
-    </div>
-    <div *ngIf="password.invalid && (password.dirty || password.touched)"
-         class="alert alert-danger form-danger" role="alert">
-      <div *ngIf="password.errors.required">
-       La contraseña es obligatoria
-      </div>
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Submit</button>
+    </form>
+  </div>
 </div>
